@@ -2,7 +2,7 @@ const chai = require("chai");
 const chaiHttp = require("chai-http");
 const expect = chai.expect;
 const app = require("../app");
-const fs = require("fs-extra");
+const fs = require("fs");
 
 chai.use(chaiHttp);
 
@@ -14,7 +14,7 @@ describe("API ENDPOINT TESTING", () => {
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        expect(res.body).to.be.an("Object");
+        expect(res.body).to.be.an("object");
         expect(res.body).to.have.property("hero");
         expect(res.body.hero).to.have.all.keys(
           "travelers",
@@ -27,7 +27,6 @@ describe("API ENDPOINT TESTING", () => {
         expect(res.body.category).to.have.an("array");
         expect(res.body).to.have.property("testimonial");
         expect(res.body.testimonial).to.have.an("object");
-
         done();
       });
   });
@@ -35,7 +34,7 @@ describe("API ENDPOINT TESTING", () => {
   it("GET Detail Page", (done) => {
     chai
       .request(app)
-      .get("/api/v1/member/detail-page/5e96cbe292b97300fc902233")
+      .get("/api/v1/member/detail-page/5e96cbe292b97300fc902223")
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
@@ -60,27 +59,25 @@ describe("API ENDPOINT TESTING", () => {
         expect(res.body.bank).to.have.an("array");
         expect(res.body).to.have.property("testimonial");
         expect(res.body.testimonial).to.have.an("object");
-
         done();
       });
   });
 
   it("POST Booking Page", (done) => {
-    const image = __dirname + "/buktibayar.jpeg";
+    const image = __dirname + "/bukti_bayar.jpeg";
     const dataSample = {
       image,
-      idItem: "5e96cbe292b97300fc902233",
+      idItem: "5e96cbe292b97300fc902223",
       duration: 2,
       bookingStartDate: "9-4-2020",
       bookingEndDate: "11-4-2020",
       firstName: "itce",
       lastName: "diasari",
       email: "itce@gmail.com",
-      phoneNumber: "089698023085",
+      phoneNumber: "08150008989",
       accountHolder: "itce",
       bankFrom: "BNI",
     };
-
     chai
       .request(app)
       .post("/api/v1/member/booking-page")
@@ -95,7 +92,7 @@ describe("API ENDPOINT TESTING", () => {
       .field("phoneNumber", dataSample.phoneNumber)
       .field("accountHolder", dataSample.accountHolder)
       .field("bankFrom", dataSample.bankFrom)
-      .attach("image", fs.readFileSync(dataSample.image), "buktibayar.jpeg")
+      .attach("image", fs.readFileSync(dataSample.image), "bukti_bayar.jpeg")
       .end((err, res) => {
         expect(err).to.be.null;
         expect(res).to.have.status(201);
@@ -126,8 +123,6 @@ describe("API ENDPOINT TESTING", () => {
           "price",
           "duration"
         );
-        // console.log(res.body.booking);
-
         done();
       });
   });
