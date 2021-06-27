@@ -34,7 +34,7 @@ module.exports = {
       const city = await Item.find();
 
       for (let i = 0; i < category.length; i++) {
-        for (let x = 0; x < category[i].isDirectModified.length; x++) {
+        for (let x = 0; x < category[i].itemId.length; x++) {
           const item = await Item.findOne({ _id: category[i].itemId[x]._id });
           item.isPopular = false;
           await item.save();
