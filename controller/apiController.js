@@ -10,10 +10,10 @@ module.exports = {
   landingPage: async (req, res) => {
     try {
       const mostPicked = await Item.find()
-        .select("_id title country city price unit imageId")
+        .select(" title country _id city price unit imageId")
         .limit(5)
         .populate({ path: "imageId", select: "_id imageUrl" });
-
+      console.log(mostPicked);
       const category = await Category.find()
         .select("_id name")
         .limit(3)
@@ -34,7 +34,7 @@ module.exports = {
       const city = await Item.find();
 
       for (let i = 0; i < category.length; i++) {
-        for (let x = 0; x < category[i].isDirectModified.length; x++) {
+        for (let x = 0; x < category[i].itemId.length; x++) {
           const item = await Item.findOne({ _id: category[i].itemId[x]._id });
           item.isPopular = false;
           await item.save();
@@ -68,7 +68,7 @@ module.exports = {
       });
     } catch (error) {
       console.log(error);
-      res.status(200).json({ message: "Internal Server Eror" });
+      res.status(200).json({ message: "Internal Server Erorr" });
     }
   },
 
@@ -84,7 +84,7 @@ module.exports = {
 
       const testimonial = {
         _id: "asd1293uasdads1",
-        imageUrl: "images/testimonial1.jpg",
+        imageUrl: "images/testimonial2.jpg",
         name: "Happy Family",
         rate: 4.55,
         content:
@@ -116,7 +116,7 @@ module.exports = {
       return res.status(404).json({ message: "Image Not Found" });
     }
 
-    console.log(idItem);
+    // console.log(idItem);
     if (
       idItem === undefined ||
       duration === undefined ||
