@@ -51,11 +51,6 @@ app.use(
   express.static(path.join(__dirname, "node_modules/startbootstrap-sb-admin-2"))
 );
 
-app.use("/", indexRouter);
-app.use("/users", usersRouter);
-// admin
-app.use("/admin", adminRouter);
-
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader(
@@ -65,6 +60,11 @@ app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
   next();
 });
+
+app.use("/", indexRouter);
+app.use("/users", usersRouter);
+// admin
+app.use("/admin", adminRouter);
 
 app.use("/api/v1/member", apiRouter);
 
