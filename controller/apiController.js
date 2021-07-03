@@ -13,7 +13,7 @@ module.exports = {
         .select(" title country _id city price unit imageId")
         .limit(5)
         .populate({ path: "imageId", select: "_id imageUrl" });
-      console.log(mostPicked);
+      // console.log(mostPicked);
       const category = await Category.find()
         .select("_id name")
         .limit(3)
@@ -28,6 +28,7 @@ module.exports = {
             perDocumentLimit: 1,
           },
         });
+      console.log(category);
 
       const traveler = await Traveler.find();
       const treasure = await Treasure.find();
